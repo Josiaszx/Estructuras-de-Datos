@@ -92,6 +92,34 @@ void eliminar(lista_enlazada *list, int pos) {
 
 }
 
+// obtener el valor en el indice pos
+// si pos es -1 obtener el ultimo elemento
+int obtener(lista_enlazada *list, int pos) {
+    if (pos < -1 || pos >= list->longitud) return -1;
+    if (pos == 0) return list->inicio->dato;
+    if (pos == -1) return list->fin->dato;
+    else {
+        nodo *tmp = list->inicio;
+        for (int i = 0; i < pos; i++) {
+            tmp = tmp->siguiente;
+        }
+        return tmp->dato;
+    }
+}
+
+// buscar un valor en la lista segun su indice
+int buscar(lista_enlazada *list, int indice) {
+    if (indice < -1 || indice >= list->longitud) return -1;
+    if (indice == 0) return list->inicio->dato;
+    if (indice == list->longitud - 1 || indice == -1) return list->fin->dato;
+    nodo *current = list->inicio;
+    for (int i = 0; i < indice; i++) {
+        current = current->siguiente;
+    }
+    return current->dato;
+}
+
+
 // imprimir la lista por consola
 void printlist(lista_enlazada *list) {
     if (list->longitud == 0) {
