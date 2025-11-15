@@ -1,38 +1,72 @@
 
 #include <stdio.h>
-#include "lista_enlazada.c"
+#include "listaenlazada.c"
+
 
 
 int main() {
 
-    lista_enlazada *firstlist = crearlista();
+    lista *lista_enlazada = crearlista();
 
-    // agregar valores
-    int valores[5] = {1, 3, 4, 6, 8};
+    // agregar datos
+    int valores[5] = {1, 2, 3, 4, 5};
     for (int i = 0; i < 5; i++) {
-        agregar(firstlist, valores + i, -1);
+        agregar(lista_enlazada, valores + i, i);
     }
 
     int n = 99;
-    agregar(firstlist, &n, -1); // agregar 99 al final
-    printlist(firstlist); // --> 1 -> 3 -> 4 -> 6 -> 8 -> 99
+    agregar(lista_enlazada, &n, 5);
+    printlist(lista_enlazada); // --> [1, 2, 3, 4, 5, 99]
 
-    // eliminar el ultimo elemento
-    eliminar(firstlist, -1);
+    // eliminar datos
+    eliminar(lista_enlazada, -1);
+    printlist(lista_enlazada); // --> [1, 2, 3, 4, 5]
 
-    printlist(firstlist); // --> 1 -> 3 -> 4 -> 6 -> 8
+    eliminar(lista_enlazada, -1);
+    printlist(lista_enlazada); // --> [1, 2, 3, 4]
 
-    // eliminar primer elemento
-    eliminar(firstlist, 0);
-    printlist(firstlist); // --> 3 -> 4 -> 6 -> 8
+    eliminar(lista_enlazada, -1);
+    printlist(lista_enlazada); // --> [1, 2, 3]
 
-    // obtener elemento en el indice 2
-    int valor = obtener(firstlist, 2);
-    printf("Valor en el indice 2: %d\n", valor); // --> Valor en el indice 2: 6
+    eliminar(lista_enlazada, -1);
+    printlist(lista_enlazada); // --> [1, 2]
 
-    // buscar elemento en el indice 1
-    int buscado = buscar(firstlist, 1);
-    printf("Valor en el indice 1: %d\n", buscado); // --> Valor en el indice 1: 4
+    eliminar(lista_enlazada, -1);
+    printlist(lista_enlazada); // --> [1]
+
+    printf("\n");
+
+
+    int l = 777;
+    agregar(lista_enlazada, &l, -1);
+    printlist(lista_enlazada); // --> [1, 777]
+
+    agregar(lista_enlazada, &l, 0);
+    printlist(lista_enlazada); // --> [777, 1, 777]
+
+    // buscar por indice
+    int *dato = obtener(lista_enlazada, -1);
+    printf("\nEl dato en la posicion final es: %d\n", *dato); // --> El dato en la posicion final es: 777
+
+    int *dato2 = obtener(lista_enlazada, 1);
+    printf("El dato en el indice 1 es: %d\n", *dato2); // --> El dato en el indice 1 es: 1
+
+    int *dato3 = obtener(lista_enlazada, 0);
+    printf("El dato en el indice 0 es: %d\n\n", *dato3); // --> El dato en el indice 0 es: 777
+
+    // buscar por valor
+    int pos1 = buscar(lista_enlazada, 777);
+    printf("El dato 777 se encuentra en la posicion: %d\n", pos1); // --> El dato 777 se encuentra en la posicion: 0
+
+    int pos2 = buscar(lista_enlazada, 1);
+    printf("El dato 1 se encuentra en la posicion: %d\n", pos2); // --> El dato 1 se encuentra en la posicion: 1
+
+    int pos3 = buscar(lista_enlazada, 42);
+    printf("El dato 42 se encuentra en la posicion: %d\n\n", pos3); // --> El dato 42 se encuentra en la posicion: -1
+
+    eliminar(lista_enlazada, 1);
+    printlist(lista_enlazada); // --> [777, 777]
+
 
     return 0;
 
